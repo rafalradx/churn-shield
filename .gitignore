@@ -11,3 +11,4 @@ test.db
 .docs
 .htmlcov
 notebooks/.ipynb_checkpoints/
+/venv
