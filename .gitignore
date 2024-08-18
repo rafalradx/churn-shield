@@ -1,2 +1,15 @@
-.venv
+__pycache__/
+commands_log.txt
+.env
+alembic.txt
+postgres-data/
+.pytest_cache
+postgres-data
+test.db
+.coverage
 .idea
+.docs
+.htmlcov
+notebooks/.ipynb_checkpoints/
+.venv
+

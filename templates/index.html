@@ -1,0 +1,194 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="d-flex">
+    <!-- Sidebar -->
+    <div class="bg-dark text-white p-4 vh-100">
+        <h2 class="h4">Select Model</h2>
+        <ul class="nav flex-column">
+            {% for model in models %}
+            <li class="nav-item">
+                <a class="nav-link text-white" href="#">{{ model }}</a>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container-fluid p-4 d-flex">
+        <!-- Formularz -->
+        <div class="w-50 me-4">
+            <h2 class="mb-4">Form</h2>
+            <form class="row g-3">
+                <div class="col-12 form-check">
+                    <input type="checkbox" class="form-check-input" id="is_tv_subscriber" name="is_tv_subscriber">
+                    <label class="form-check-label" for="is_tv_subscriber">Is TV subscriber:</label>
+                </div>
+                <div class="col-12 form-check">
+                    <input type="checkbox" class="form-check-input" id="is_movie_package_subscriber" name="is_movie_package_subscriber">
+                    <label class="form-check-label" for="is_movie_package_subscriber">Is movie package subscriber:</label>
+                </div>
+                <div class="col-12 d-flex align-items-center">
+                    <label for="subscription_age" class="form-label w-25">Subscribtion age:</label>
+                    <input type="number" class="form-control w-25 me-3" id="subscription_age_value" name="subscription_age_value" min="5.1" max="12.8" step="0.01" value="8.95" oninput="this.nextElementSibling.value = this.value">
+                    <input type="range" class="form-range flex-grow-1" id="subscription_age" name="subscription_age" min="5.1" max="12.8" step="0.01" oninput="this.previousElementSibling.value = this.value">
+                </div>
+                <div class="col-12 d-flex align-items-center">
+                    <label for="bill_avg" class="form-label w-25">Average bill:</label>
+                    <input type="number" class="form-control w-25 me-3" id="bill_avg_value" name="bill_avg_value" min="0" max="129" step="0.01" value="20.0" oninput="this.nextElementSibling.value = this.value">
+                    <input type="range" class="form-range flex-grow-1" id="bill_avg" name="bill_avg" min="0" max="129" step="0.01" oninput="this.previousElementSibling.value = this.value">
+                </div>
+                <div class="col-12 d-flex align-items-center">
+                    <label for="reamining_contract" class="form-label w-25">Remaining contract:</label>
+                    <input type="number" class="form-control w-25 me-3" id="reamining_contract_value" name="reamining_contract_value" min="0" max="1.83" step="0.01" value="0.5" oninput="this.nextElementSibling.value = this.value">
+                    <input type="range" class="form-range flex-grow-1" id="reamining_contract" name="reamining_contract" min="0" max="1.83" step="0.01" oninput="this.previousElementSibling.value = this.value">
+                </div>
+                <div class="col-12 d-flex align-items-center">
+                    <label for="service_failure_count" class="form-label w-25">Service failures:</label>
+                    <input type="number" class="form-control w-25 me-3" id="service_failure_count_value" name="service_failure_count_value" min="0" max="10" step="1" value="0" oninput="this.nextElementSibling.value = this.value">
+                    <input type="range" class="form-range flex-grow-1" id="service_failure_count" name="service_failure_count" min="0" max="10" step="1" oninput="this.previousElementSibling.value = this.value">
+                </div>
+                <div class="col-12 d-flex align-items-center">
+                    <label for="download_avg" class="form-label w-25">Average download:</label>
+                    <input type="number" class="form-control w-25 me-3" id="download_avg_value" name="download_avg_value" min="0" max="1170.3" step="0.1" value="50.0" oninput="this.nextElementSibling.value = this.value">
+                    <input type="range" class="form-range flex-grow-1" id="download_avg" name="download_avg" min="0" max="1170.3" step="0.1" oninput="this.previousElementSibling.value = this.value">
+                </div>
+                <div class="col-12 d-flex align-items-center">
+                    <label for="upload_avg" class="form-label w-25">Average upload:</label>
+                    <input type="number" class="form-control w-25 me-3" id="upload_avg_value" name="upload_avg_value" min="0" max="65.4" step="0.1" value="10.0" oninput="this.nextElementSibling.value = this.value">
+                    <input type="range" class="form-range flex-grow-1" id="upload_avg" name="upload_avg" min="0" max="65.4" step="0.1" oninput="this.previousElementSibling.value = this.value">
+                </div>
+                <div class="col-12 d-flex align-items-center">
+                    <label for="download_over_limit" class="form-label w-25">Download over limit:</label>
+                    <input type="number" class="form-control w-25 me-3" id="download_over_limit_value" name="download_over_limit_value" min="0" max="6" step="0.1" value="0.0" oninput="this.nextElementSibling.value = this.value">
+                    <input type="range" class="form-range flex-grow-1" id="download_over_limit" name="download_over_limit" min="0" max="6" step="0.1" oninput="this.previousElementSibling.value = this.value">
+                </div>
+                <div class="col-12">
+                    <button type="submit" class="btn btn-primary">Save data</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Sekcja Wyniku -->
+        <div class="w-50 bg-light text-center p-4 d-flex flex-column justify-content-center align-items-center">
+            <p class="h3 mt-3">Will the customer churn?:</p>
+            <h2 class="display-3 fw-bold"><span id="probability-value">-</span>%</h2>
+        </div>
+    </div>
+</div>
+
+<script>
+// Funkcja debouncingowa
+function debounce(func, delay) {
+    let timeout;
+    return function(...args) {
+        clearTimeout(timeout);
+        timeout = setTimeout(() => func.apply(this, args), delay);
+    };
+}
+
+// Funkcja predykcji
+async function predictChurn() {
+    // Pobranie wybranego modelu z aktywnego linku
+    const activeModelLink = document.querySelector('.nav-link.active');
+    if (!activeModelLink) {
+        console.error('Model nie został wybrany.');
+        return;
+    }
+    const modelName = activeModelLink.textContent.trim();
+
+    // Pobranie wartości z formularza
+    const isTvSubscriber = document.getElementById('is_tv_subscriber').checked;
+    const isMoviePackageSubscriber = document.getElementById('is_movie_package_subscriber').checked;
+    const subscriptionAge = parseFloat(document.getElementById('subscription_age_value').value);
+    const billAvg = parseFloat(document.getElementById('bill_avg_value').value);
+    const remainingContract = parseFloat(document.getElementById('reamining_contract_value').value);
+    const serviceFailureCount = parseInt(document.getElementById('service_failure_count_value').value, 10);
+    const downloadAvg = parseFloat(document.getElementById('download_avg_value').value);
+    const uploadAvg = parseFloat(document.getElementById('upload_avg_value').value);
+    const downloadOverLimit = parseFloat(document.getElementById('download_over_limit_value').value);
+
+    // Stworzenie obiektu danych
+    const data = {
+        is_tv_subscriber: isTvSubscriber,
+        is_movie_package_subscriber: isMoviePackageSubscriber,
+        subscription_age: subscriptionAge,
+        bill_avg: billAvg,
+        remaining_contract: remainingContract,
+        service_failure_count: serviceFailureCount,
+        download_avg: downloadAvg,
+        upload_avg: uploadAvg,
+        download_over_limit: downloadOverLimit
+    };
+
+    try {
+        // Wywołanie endpointu FastAPI
+        const response = await fetch(`/predict/?model_name=${modelName}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        });
+
+        // Sprawdzenie odpowiedzi
+        if (!response.ok) {
+            throw new Error(`Error: ${response.statusText}`);
+        }
+
+        // Odczytanie danych z odpowiedzi
+        const result = await response.json();
+
+        // Zaktualizowanie sekcji wyniku
+        const probabilityValue = document.getElementById('probability-value');
+        probabilityValue.textContent = `${(result.probability * 100).toFixed(2)}`;
+
+    } catch (error) {
+        console.error('Wystąpił błąd:', error);
+    }
+}
+
+// Funkcja do ustawienia listenerów na wszystkich elementach formularza
+function setUpFormListeners() {
+    const formElements = document.querySelectorAll('#subscription_age, #bill_avg, #reamining_contract, #service_failure_count, #download_avg, #upload_avg, #download_over_limit, #is_tv_subscriber, #is_movie_package_subscriber');
+
+    // Zastosowanie debouncingu do funkcji predykcji
+    const debouncedPredictChurn = debounce(predictChurn, 500);
+
+    formElements.forEach(element => {
+        element.addEventListener('input', () => {
+            // Aktualizacja pola tekstowego obok suwaka
+            if (element.type === 'range') {
+                const correspondingInput = document.getElementById(`${element.id}_value`);
+                correspondingInput.value = element.value;
+            }
+            debouncedPredictChurn();
+        });
+    });
+}
+
+// Funkcja do ustawienia listenerów na linkach modeli
+function setUpModelLinks() {
+    const modelLinks = document.querySelectorAll('.nav-link');
+    
+    modelLinks.forEach(link => {
+        link.addEventListener('click', function(event) {
+            event.preventDefault();
+            // Usunięcie klasy 'active' z poprzednio aktywnego linku
+            document.querySelector('.nav-link.active')?.classList.remove('active');
+            // Dodanie klasy 'active' do klikniętego linku
+            link.classList.add('active');
+            // Wywołanie predykcji przy zmianie modelu
+            predictChurn();
+        });
+    });
+}
+
+// Inicjalizacja listenerów
+document.addEventListener('DOMContentLoaded', () => {
+    setUpFormListeners();
+    setUpModelLinks();
+});
+
+</script>
+{% endblock %}
