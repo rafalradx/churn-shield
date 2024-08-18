@@ -53,9 +53,9 @@ To polecenie instaluje wszystkie zależności wymagane przez projekt, korzystaj�
 
 ## Uruchomienie aplikacji:
 
-### Uruchamianie aplikacji Flask
+### Uruchamianie aplikacji Flet
 
-Aby uruchomić aplikację Flask, użyj następującego polecenia:
+Aby uruchomić aplikację Flet, użyj następującego polecenia:
 
 ```
 XXXXX
@@ -153,9 +153,9 @@ This command installs all dependencies required by the project using the **requi
 
 ## Running the Application:
 
-### Running the Flask Application
+### Running the Flet Application
 
-To start the Flask application, use the following command:
+To start the Flet application, use the following command:
 
 ```
 XXXXX
