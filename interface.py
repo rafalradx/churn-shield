@@ -1,4 +1,38 @@
+import os
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
+
 import flet as ft
+import joblib
+import pandas as pd
+from tensorflow.keras.models import load_model
+
+# ___Loading Models & Scaler___
+scaler = joblib.load('notebooks/scaler.pkl')
+model_rf = joblib.load('notebooks/random_forest_model.pkl')
+model_dnn = load_model('notebooks/dense_nn_model.keras', compile=False)
+model_dnn.compile(optimizer='rmsprop', loss='your_loss_function')
+
+# Scaler features
+features_to_scale = [
+    'subscription_age',
+    'bill_avg',
+    'reamining_contract',
+    'service_failure_count',
+    'download_avg',
+    'upload_avg'
+]
+
+correct_feature_order = [
+    "is_tv_subscriber",
+    "is_movie_package_subscriber",
+    "subscription_age",
+    "bill_avg",
+    "reamining_contract",
+    "service_failure_count",
+    "download_avg",
+    "upload_avg",
+    "download_over_limit"
+]
 
 
 def main(page: ft.Page):
@@ -7,10 +41,10 @@ def main(page: ft.Page):
     page.title = 'Churn or not to churn'
     page.bgcolor = "#fcde67"
 
-
     # ___Variables___
     width = 500
-    reg_0_or_else = r"^(0|[1-9]\d*)$"
+    reg_float_or_int = r"^(0|[1-9]\d*|0\.\d*|[1-9]\d*\.\d*)$"
+
     text_style = ft.TextStyle(
         color="#030e12",
     )
@@ -48,7 +82,7 @@ def main(page: ft.Page):
     length_of_subscription = ft.TextField(
         label="Length of Subscription (in months)",
         label_style=ft.TextStyle(color="#030e12"),
-        input_filter=ft.InputFilter(allow=True, regex_string=reg_0_or_else, replacement_string=""),
+        input_filter=ft.InputFilter(allow=True, regex_string=reg_float_or_int, replacement_string=""),
         width=width,
         bgcolor=ft.colors.WHITE,
         border_color="#5bccf6",
@@ -59,7 +93,7 @@ def main(page: ft.Page):
     average_monthly_bill = ft.TextField(
         label="Average Monthly Bill ($$$)",
         label_style=ft.TextStyle(color="#030e12"),
-        input_filter=ft.InputFilter(allow=True, regex_string=reg_0_or_else, replacement_string=""),
+        input_filter=ft.InputFilter(allow=True, regex_string=reg_float_or_int, replacement_string=""),
         width=width,
         bgcolor=ft.colors.WHITE,
         border_color="#5bccf6",
@@ -70,7 +104,7 @@ def main(page: ft.Page):
     remaining_contract_duration = ft.TextField(
         label="Remaining Contract Duration (in months)",
         label_style=ft.TextStyle(color="#030e12"),
-        input_filter=ft.InputFilter(allow=True, regex_string=reg_0_or_else, replacement_string=""),
+        input_filter=ft.InputFilter(allow=True, regex_string=reg_float_or_int, replacement_string=""),
         width=width,
         bgcolor=ft.colors.WHITE,
         border_color="#5bccf6",
@@ -81,7 +115,7 @@ def main(page: ft.Page):
     number_of_service_failures = ft.TextField(
         label="Number of Service Failures (times)",
         label_style=ft.TextStyle(color="#030e12"),
-        input_filter=ft.InputFilter(allow=True, regex_string=reg_0_or_else, replacement_string=""),
+        input_filter=ft.InputFilter(allow=True, regex_string=reg_float_or_int, replacement_string=""),
         width=width,
         bgcolor=ft.colors.WHITE,
         border_color="#5bccf6",
@@ -92,7 +126,7 @@ def main(page: ft.Page):
     average_download_speed = ft.TextField(
         label="Average Download Speed (Mbps)",
         label_style=ft.TextStyle(color="#030e12"),
-        input_filter=ft.InputFilter(allow=True, regex_string=reg_0_or_else, replacement_string=""),
+        input_filter=ft.InputFilter(allow=True, regex_string=reg_float_or_int, replacement_string=""),
         width=width,
         bgcolor=ft.colors.WHITE,
         border_color="#5bccf6",
@@ -103,7 +137,7 @@ def main(page: ft.Page):
     average_upload_speed = ft.TextField(
         label="Average Upload Speed (Mbps)",
         label_style=ft.TextStyle(color="#030e12"),
-        input_filter=ft.InputFilter(allow=True, regex_string=reg_0_or_else, replacement_string=""),
+        input_filter=ft.InputFilter(allow=True, regex_string=reg_float_or_int, replacement_string=""),
         width=width,
         bgcolor=ft.colors.WHITE,
         border_color="#5bccf6",
@@ -114,7 +148,7 @@ def main(page: ft.Page):
     data_over_limit_usage = ft.TextField(
         label="Data Over Limit Usage (times)",
         label_style=ft.TextStyle(color="#030e12"),
-        input_filter=ft.InputFilter(allow=True, regex_string=reg_0_or_else, replacement_string=""),
+        input_filter=ft.InputFilter(allow=True, regex_string=reg_float_or_int, replacement_string=""),
         width=width,
         bgcolor=ft.colors.WHITE,
         border_color="#5bccf6",
@@ -157,12 +191,22 @@ def main(page: ft.Page):
         visible=False,
     )
 
+    results_container = ft.Container(
+        padding=20,
+        margin=5,
+        bgcolor="#030e12",
+        border_radius=15,
+        visible=False,
+    )
+
     # ___Fields fill check___
     def on_submit(e):
         message_container.content = None
         display_data_conteiner.content = None
+        results_container.content = None
         message_container.visible = False
         display_data_conteiner.visible = False
+        results_container.visible = False
 
         missing_fields = [field.label for field in fields if isinstance(field.value, str) and not field.value.strip()]
         if missing_fields:
@@ -187,11 +231,34 @@ def main(page: ft.Page):
             display_data_conteiner.visible = True
 
             # Prepare the data for the model
-            model_data = {
-                "tv_subscription_status": float(tv_status_value),
-                "movie_package_subscription_status": float(movie_status_value),
-                **{field.label: float(field.value.strip()) for field in fields}
+            new_data = {
+                "is_tv_subscriber": float(tv_subscription_status.value),
+                "is_movie_package_subscriber": float(movie_package_subscription_status.value),
+                "subscription_age": float(length_of_subscription.value.strip()),
+                "bill_avg": float(average_monthly_bill.value.strip()),
+                "reamining_contract": float(remaining_contract_duration.value.strip()),
+                "service_failure_count": float(number_of_service_failures.value.strip()),
+                "download_avg": float(average_download_speed.value.strip()),
+                "upload_avg": float(average_upload_speed.value.strip()),
+                "download_over_limit": float(data_over_limit_usage.value.strip())
             }
+
+            df = pd.DataFrame([[new_data[feature] for feature in correct_feature_order]], columns=correct_feature_order)
+            df[features_to_scale] = scaler.transform(df[features_to_scale])
+
+            random_forest_probability = model_rf.predict_proba(df)[:, 1][0]
+            dense_neural_net_probability = model_dnn.predict(df.values)[0][0]
+
+            random_forest_results = round(random_forest_probability * 100, 2)
+            dense_neural_net_results = round(dense_neural_net_probability * 100, 2)
+
+            results_container.content = ft.Text(
+                f"Quiting probability for\n"
+                f"Random Forest is {random_forest_results}%\n"
+                f"Dense Nural Net is {dense_neural_net_results}%",
+                size=20
+            )
+            results_container.visible = True
 
         page.update()
 
@@ -235,6 +302,7 @@ def main(page: ft.Page):
     content_column = ft.Column(
         controls=[
             welcome_message_conteiner,
+            results_container,
             # Tu lozyc kontener z odpowiedziami ML
         ],
         alignment=ft.MainAxisAlignment.CENTER,
