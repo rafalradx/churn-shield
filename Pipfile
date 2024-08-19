@@ -8,6 +8,9 @@ fastapi = "*"
 numpy = "*"
 tensorflow = "*"
 flet = "*"
+joblib = "*"
+pandas = "*"
+scikit-learn = "*"
 
 [dev-packages]
 
