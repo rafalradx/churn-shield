@@ -10,8 +10,7 @@ from tensorflow.keras.models import load_model
 # ___Loading Models & Scaler___
 scaler = joblib.load("models/scaler.pkl")
 model_rf = joblib.load("models/random_forest_classifier.pkl")
-model_dnn = load_model("models/dense_neural_net_classifier.keras", compile=False)
-model_dnn.compile(optimizer="rmsprop", loss="your_loss_function")
+model_dnn = load_model("models/dense_neural_net_classifier.keras")
 
 # Scaler features
 features_to_scale = [
