@@ -235,9 +235,6 @@ def main(page: ft.Page):
             )
             message_container.visible = True
         else:
-            tv_status_value = 1 if tv_subscription_status.value else 0
-            movie_status_value = 1 if movie_package_subscription_status.value else 0
-
             tv_status_display = (
                 "Subscription" if tv_subscription_status.value else "NO Subscription"
             )
@@ -295,6 +292,7 @@ def main(page: ft.Page):
                 f"Random Forest is {random_forest_results}%\n"
                 f"Dense Nural Net is {dense_neural_net_results}%",
                 size=20,
+                color=ft.colors.WHITE,
             )
             results_container.visible = True
 
