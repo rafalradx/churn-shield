@@ -66,7 +66,7 @@ XXXXX
 Aby uruchomić aplikację FastAPI, użyj następującego polecenia:
 
 ```
-XXXXX
+uvicorn main:app --reload
 ```
 
 ### Uruchamianie notatnika Jupyter
@@ -166,7 +166,7 @@ XXXXX
 To start the FastAPI application, use the following command:
 
 ```
-XXXXX
+uvicorn main:app --reload
 ```
 
 ### Running the Jupyter Notebook
