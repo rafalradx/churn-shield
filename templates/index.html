@@ -55,9 +55,19 @@
     </div>
 
     <div class="w-50 bg-light text-center p-4 rounded">
+        <p class="h3 mt-3">Select Models to Display:</p>
+        <div id="model-controls" class="d-flex justify-content-center mb-3">
+            {% for model in models %}
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" id="{{ model.__class__.__name__ }}-check" checked>
+                <label class="form-check-label" for="{{ model.__class__.__name__ }}-check">{{ model.__class__.__name__ }}</label>
+            </div>
+            {% endfor %}
+        </div>
         <p class="h3 mt-3">Will the customer churn?</p>
         <div id="results" class="row"></div>
     </div>
+    
 </div>
 
 <script>
@@ -97,19 +107,22 @@ async function predictChurn() {
         resultsDiv.innerHTML = "";
 
         for (const [model, probability] of Object.entries(predictions)) {
-            const columnDiv = document.createElement("div");
-            columnDiv.className = "col-12 mb-3";
+            const checkbox = document.getElementById(`${model}-check`);
+            if (checkbox.checked) {
+                const columnDiv = document.createElement("div");
+                columnDiv.className = "col-12 mb-3";
 
-            const cardDiv = document.createElement("div");
-            cardDiv.className = "card";
-            cardDiv.innerHTML = `
-                <div class="card-body">
-                    <h5 class="card-title">${model}</h5>
-                    <p class="card-text">${(probability * 100).toFixed(2)}%</p>
-                </div>
-            `;
-            columnDiv.appendChild(cardDiv);
-            resultsDiv.appendChild(columnDiv);
+                const cardDiv = document.createElement("div");
+                cardDiv.className = "card";
+                cardDiv.innerHTML = `
+                    <div class="card-body">
+                        <h5 class="card-title">${model}</h5>
+                        <p class="card-text">${(probability * 100).toFixed(2)}%</p>
+                    </div>
+                `;
+                columnDiv.appendChild(cardDiv);
+                resultsDiv.appendChild(columnDiv);
+            }
         }
     } catch (error) {
         console.error("Błąd:", error);
@@ -121,5 +134,8 @@ document.querySelector("form").addEventListener("submit", function (event) {
     event.preventDefault();
     predictChurn();
 });
+
+document.getElementById("model-controls").addEventListener("change", predictChurn);
+
 </script>
 {% endblock %}
