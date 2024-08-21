@@ -13,4 +13,5 @@ test.db
 notebooks/.ipynb_checkpoints/
 .venv
 venv
-
+Pipfile
+Pipfile.lock
