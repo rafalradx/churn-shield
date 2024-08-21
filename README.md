@@ -137,7 +137,7 @@ To polecenie instaluje wszystkie zależności wymagane przez projekt, korzystaj�
 Aby uruchomić aplikację Flet, użyj następującego polecenia:
 
 ```
-XXXXX
+flet run interface.py
 ```
 
 ### Uruchamianie aplikacji FastAPI
@@ -316,7 +316,7 @@ This command installs all dependencies required by the project using the **requi
 To start the Flet application, use the following command:
 
 ```
-XXXXX
+flet run interface.py
 ```
 
 ### Running the FastAPI Application
