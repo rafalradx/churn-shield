@@ -29,14 +29,14 @@ Upewnij się, że na Twoim komputerze zainstalowany jest Python 3.11 lub nowszy.
 
 Aplikacja korzysta z następujących bibliotek:
 
-- `fastapi==0.112.1`
-- `flet==0.23.2`
-- `jinja2==3.1.4`
-- `numpy==1.26.4`
-- `pandas==2.2.2`
-- `scikit-learn==1.5.1`
-- `tensorflow==2.17.0`
-- `uvicorn[standard]==0.30.6`
+- `fastapi`
+- `flet`
+- `jinja2`
+- `numpy`
+- `pandas`
+- `scikit-learn`
+- `tensorflow`
+- `uvicorn[standard]`
 
 ## Instalacja
 
@@ -136,14 +136,14 @@ Make sure Python 3.11 or later is installed on your computer.
 
 The application uses the following packages:
 
-- `fastapi==0.112.1`
-- `flet==0.23.2`
-- `jinja2==3.1.4`
-- `numpy==1.26.4`
-- `pandas==2.2.2`
-- `scikit-learn==1.5.1`
-- `tensorflow==2.17.0`
-- `uvicorn[standard]==0.30.6`
+- `fastapi`
+- `flet`
+- `jinja2`
+- `numpy`
+- `pandas`
+- `scikit-learn`
+- `tensorflow`
+- `uvicorn[standard]`
 
 
 ## Installation
