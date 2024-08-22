@@ -9,22 +9,20 @@ WORKDIR $APP_HOME
 
 # Install Python, build-essential (includes gcc, g++, and make), and other necessary tools
 RUN apt-get update && apt-get install -y \
-    python3-full \
-#    python3-pip \
-#    python3-venv \
-    build-essential \
+    python3-pip \
+    python3-venv \
     && rm -rf /var/lib/apt/lists/*
 
 # Copy the requirements file into the container
-COPY require_container.txt $APP_HOME
+COPY requirements.txt $APP_HOME
 
-# starting from ubuntu 24.04, the installing of Python packages system-wide using pip 
+# starting from ubuntu 24.04 installing Python packages system-wide using pip 
 # without a virtual environment is restricted
 # Create a virtual environment
 RUN python3 -m venv venv
 
 # Activate the virtual environment and install dependencies
-RUN . venv/bin/activate && pip install --no-cache-dir --upgrade -r $APP_HOME/require_container.txt
+RUN . venv/bin/activate && pip install --no-cache-dir --upgrade -r $APP_HOME/requirements.txt
 
 # Copy the application code into the container
 COPY . $APP_HOME
