@@ -3,11 +3,12 @@ import numpy as np
 import joblib
 import pandas as pd
 from tensorflow.keras.models import load_model
-from fastapi import FastAPI, Request, Form
+from fastapi import FastAPI, Request
 from pydantic import BaseModel
 from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
+from src.scripts import generate_recommendation
 
 templates = Jinja2Templates(directory="templates")
 
@@ -17,13 +18,16 @@ models_path = 'models/'
 
 models = []
 
+
 # Load models
 for model_file in os.listdir(models_path):
     model_path = os.path.join(models_path, model_file)
 
     # Load .keras models
     if model_path.endswith(".keras"):
-        models.append(load_model(model_path))
+        model = load_model(model_path)
+        model.__class__.__name__ = "Neural network"
+        models.append(model)
     # Load scaler
     elif model_path.endswith("scaler.pkl"):
         scaler = joblib.load(model_path)
@@ -40,6 +44,8 @@ features_to_scale = [
     "download_avg",
     "upload_avg",
     ]
+
+stored_data = {"input_data": None, "predictions": None}
 
 app.mount("/static", StaticFiles(directory="static"), name="static")
 
@@ -76,10 +82,12 @@ def predict(data: InputData):
 
     input_data[features_to_scale] = scaler.transform(input_data[features_to_scale])
 
+
+
     # Calculate probability for each model
     for model in models:
         model_name = model.__class__.__name__
-        if model_name == "Sequential":
+        if model_name == "Neural network":
             prediction = model.predict(input_data.values, verbose = 0)[0][0]
             probability = float(prediction)
         else:
@@ -88,4 +96,19 @@ def predict(data: InputData):
 
         predictions[model_name] = probability
 
+    stored_data["input_data"] = data.dict()
+    stored_data["predictions"] = predictions
+    print(stored_data)
+
     return predictions
+
+@app.post("/recommend/")
+def recommend():
+    input_data = stored_data["input_data"]
+    predictions = stored_data["predictions"]
+
+    if input_data is None or predictions is None:
+        return {"error": "No data available for generating a recommendation."}
+
+    recommendation = generate_recommendation(input_data, predictions)
+    return {"recommendation": recommendation}
