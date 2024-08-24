@@ -63,6 +63,11 @@ Dla aplikacji `flet` zainstaluj zależnoci:
 
 `pip install -r requiremenst-flet.txt`
 
+## Konfiguracja do pracy z API openAI
+
+Aplikacja FastAPI może komunikować się z ChatGPT za pomocą API openAI, aby uzyskać rekomendacje. Aby skorzystać z tej funkcjonalności, zmień nazwę pliku `env` na `.env` i umieścić w nim klucz API openAI:
+
+`OPENAI_API_KEY=your_super_secret_open_AI_api_key`
 
 ## Uruchomienie aplikacji:
 
@@ -150,8 +155,6 @@ Jeśli masz pytania, sugestie lub chciałbyś się skontaktować w sprawie aplik
 - [Authors](#Authors)
 - [Contact](#Contact)
 
-## Configuration
-
 Make sure Python 3.11 or later is installed on your computer.
 
 The application uses the following packages:
@@ -191,9 +194,11 @@ To use `flet` app install requirements from file:
 
 `pip install -r requirements-flet.txt`
 
-This command installs all dependencies required by the project using the **requirements.txt file**.
+## Configuration to work with openAI API
 
-## Configuration
+The FastAPI application can interact with ChatGPT via the OpenAI API to obtain recommendations. To use this functionality, you need to rename the configuration file from `env` to `.env` and include your OpenAI API key:
+
+`OPENAI_API_KEY=your_super_secret_open_AI_api_key`
 
 ### 
 
