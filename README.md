@@ -87,7 +87,7 @@ uvicorn main:app --reload
 Uruchom serwer notatnika Jupyter, aby uruchomić analizę:
 
 ```
-jupyter notebook
+jupyter-notebook noteboks/project.ipynb
 ```
 
 ## Przykład użycia
@@ -168,7 +168,13 @@ cd to-churn-or-not-to-churn
 
 ### 3. Install Dependencies:
 
+To use `FastAPI` application install requirements from file:
+
 `pip install -r requirements.txt`
+
+To use `flet` app install requirements from file:
+
+`pip install -r requirements-flet.txt`
 
 This command installs all dependencies required by the project using the **requirements.txt file**.
 
@@ -195,7 +201,7 @@ uvicorn main:app --reload
 Start the Jupyter notebook server to run the analysis:
 
 ```
-jupyter notebook
+jupyter-notebook notebooks/project.ipynb
 ```
 
 ## Usage example
