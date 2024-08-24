@@ -115,11 +115,11 @@ Aplikacja będzie dostępna w przeglądarce pod adresem:
 
 ### Przykład użycia aplikacji FastAPI
 
-Model prediction:
+Predykcja modelu:
 
 ![Screenshot from 2024-08-24 19-09-11](https://github.com/user-attachments/assets/705cfe33-bd3f-410f-b679-1908144698dc)
 
-GPT recommendation:
+Rekomendacja GPT:
 
 ![Screenshot from 2024-08-24 19-11-00](https://github.com/user-attachments/assets/5a75a2d9-8ef8-4c49-9ce8-02e5e7fc7abb)
 
@@ -255,6 +255,16 @@ The app can be accessed in your browser at:
 `localhost:8000`
 
 ## Usage example
+
+### Usage example FastAPI
+
+Model prediction:
+
+![Screenshot from 2024-08-24 19-09-11](https://github.com/user-attachments/assets/705cfe33-bd3f-410f-b679-1908144698dc)
+
+GPT recommendation:
+
+![Screenshot from 2024-08-24 19-11-00](https://github.com/user-attachments/assets/5a75a2d9-8ef8-4c49-9ce8-02e5e7fc7abb)
 
 ## Licence
 
