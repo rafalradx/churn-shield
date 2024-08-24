@@ -1,5 +1,5 @@
-from pydantic import BaseModel
-
+from pydantic import BaseModel, RootModel
+from typing import Dict
 
 class InputData(BaseModel):
     is_tv_subscriber: int
@@ -10,4 +10,13 @@ class InputData(BaseModel):
     service_failure_count: int
     download_avg: float
     upload_avg: float
-    download_over_limit: float
+    download_over_limit: int
+
+# Model dla predictions
+class Predictions(BaseModel):
+    predictions: Dict[str, float]  # Klucze to nazwy modeli, wartości to float
+
+# Model dla całości żądania
+class RecommendationRequest(BaseModel):
+    input_data: InputData
+    predictions: Dict[str, float]  # Tu bezpośrednio używamy słownika
