@@ -90,9 +90,23 @@ Uruchom serwer notatnika Jupyter, aby uruchomić analizę:
 jupyter-notebook noteboks/project.ipynb
 ```
 
-## Przykład użycia
+### Uruchamianie aplikacji FastAPI jako kontenera Docker
 
-### Przykład użycia aplikacji Flask
+Aplikację FastAPI można również uruchomić w kontenerze Docker. Aby to zrobić, najpierw zbuduj obraz Docker:
+
+`docker build -t ml-churn-fastapi .`
+
+To polecenie tworzy obraz Docker o nazwie `ml-churn-fastapi`, używając Ubuntu 24.04 jako bazowego systemu. Proces trwa około 10 minut, a wynikowy obraz ma około 3 GB.
+
+Aby uruchomić aplikację w kontenerze, użyj następującego polecenia:
+
+`docker run -d -p 8000:8000 ml-churn-fastapi`
+
+Aplikacja będzie dostępna w przeglądarce pod adresem:
+
+`localhost:8000`
+
+## Przykład użycia
 
 ### Przykład użycia aplikacji FastAPI
 
@@ -150,6 +164,7 @@ The application uses the following packages:
 - `scikit-learn`
 - `tensorflow`
 - `uvicorn[standard]`
+- `openai`
 
 
 ## Installation
@@ -178,6 +193,10 @@ To use `flet` app install requirements from file:
 
 This command installs all dependencies required by the project using the **requirements.txt file**.
 
+## Configuration
+
+### 
+
 ## Running the Application:
 
 ### Running the Flet Application
@@ -203,6 +222,23 @@ Start the Jupyter notebook server to run the analysis:
 ```
 jupyter-notebook notebooks/project.ipynb
 ```
+
+### Running the FastAPI app as a docker container
+
+The FastAPI app can be alternatively run in docker container.
+To do so, first build the Docker image:
+
+`docker build -t ml-churn-fastapi .`
+
+This command creates a docker image named `ml-churn-fastapi` with ubuntu 24.04 as the base. The process takes around 10 minutes and the resulting image is approximately 3GB in size.
+
+To start the app in a container, run the following command:
+
+`docker run -d -p 8000:8000 ml-churn-fastapi`
+
+The app can be accessed in your browser at:
+
+`localhost:8000`
 
 ## Usage example
 
