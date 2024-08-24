@@ -37,6 +37,7 @@ Aplikacja korzysta z następujących bibliotek:
 - `scikit-learn`
 - `tensorflow`
 - `uvicorn[standard]`
+- `openai`
 
 ## Instalacja
 
@@ -54,9 +55,14 @@ cd to-churn-or-not-to-churn
 
 ### 3. Instalacja zależności:
 
+Dla aplikacji `FastAPI` zainstaluj zależności:
+
 `pip install -r requirements.txt`
 
-To polecenie instaluje wszystkie zależności wymagane przez projekt, korzystając z pliku **requirements.txt**.
+Dla aplikacji `flet` zainstaluj zależnoci:
+
+`pip install -r requiremenst-flet.txt`
+
 
 ## Uruchomienie aplikacji:
 
