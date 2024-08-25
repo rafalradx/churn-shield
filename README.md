@@ -11,6 +11,7 @@ Celem tego projektu jest opracowanie modelu predykcyjnego, który pozwoli przewi
 
 - [Wymagane zależności](#wymagane-zależności)
 - [Instalacja](#instalacja)
+- [Konfiguracja do pracy z API openAI](#Konfiguracja-do-pracy-z-API-openAI)
 - [Uruchomienie aplikacji](#uruchomienie-aplikacji)
 - [Przykład użycia](#Przykład-użycia)
 - [Licencja](#licencja)
@@ -159,13 +160,16 @@ The goal of this project is to develop a predictive model that can forecast the 
 
 ## Table of Contents
 
-- [Configuration](#Configuration)
+- [Required dependencies](#Required-dependencies)
 - [Installation](#installation)
+- [Configuration to work with openAI API](#Configuration-to-work-with-openAI-API)
 - [Running the application](#running-the-application)
 - [Usage example](#Usage-example)
 - [Licence](#licence)
 - [Authors](#Authors)
 - [Contact](#Contact)
+
+## Required dependencies
 
 Make sure Python 3.11 or later is installed on your computer.
 
