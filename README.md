@@ -1,17 +1,11 @@
-# Prognozowanie Rezygnacji Klientów dla Firmy Telekomunikacyjnej
-
-# Predicting Customer Churn for a Telecommunications Company
-
-## Wstęp / Introduction
-
-Celem tego projektu jest opracowanie modelu predykcyjnego, który pozwoli przewidzieć prawdopodobieństwo rezygnacji klientów z usług telekomunikacyjnych na podstawie analizy historycznych danych. Projekt ten stanowi kompleksowe podejście do analizy danych i uczenia maszynowego, obejmujące każdy kluczowy etap – od wstępnej eksploracji danych, przez ich przetwarzanie, budowę i ocenę modelu, aż po wdrożenie go w formie aplikacji. Dzięki temu model będzie nie tylko skuteczny, ale także gotowy do praktycznego zastosowania, wspierając firmę w podejmowaniu proaktywnych działań na rzecz utrzymania klientów.
-
-The goal of this project is to develop a predictive model that can forecast the likelihood of customers discontinuing telecommunication services based on the analysis of historical customer data. This project represents a comprehensive approach to data analysis and machine learning, encompassing every key stage—from initial data exploration, through data preprocessing, model development, and evaluation, to the deployment of the model in the form of an application. As a result, the model will not only be effective but also ready for practical application, helping the company take proactive measures to retain customers.
-
 ## Język / Language
 
-- [Polski / Polish](#spis-treści)
-- [Angielski / English](#table-of-contents)
+- [Polski / Polish](#Prognozowanie-Rezygnacji-Klientów-dla-Firmy-Telekomunikacyjnej)
+- [Angielski / English](#Predicting-Customer-Churn-for-a-Telecommunications-Company)
+
+# Prognozowanie Rezygnacji Klientów dla Firmy Telekomunikacyjnej
+
+Celem tego projektu jest opracowanie modelu predykcyjnego, który pozwoli przewidzieć prawdopodobieństwo rezygnacji klientów z usług telekomunikacyjnych na podstawie analizy historycznych danych. Projekt ten stanowi kompleksowe podejście do analizy danych i uczenia maszynowego, obejmujące każdy kluczowy etap – od wstępnej eksploracji danych, przez ich przetwarzanie, budowę i ocenę modelu, aż po wdrożenie go w formie aplikacji. Dzięki temu model będzie nie tylko skuteczny, ale także gotowy do praktycznego zastosowania, wspierając firmę w podejmowaniu proaktywnych działań na rzecz utrzymania klientów.
 
 ## Spis treści
 
@@ -59,7 +53,7 @@ Dla aplikacji `FastAPI` zainstaluj zależności:
 
 `pip install -r requirements.txt`
 
-Dla aplikacji `flet` zainstaluj zależnoci:
+Dla aplikacji `flet` zainstaluj zależności:
 
 `pip install -r requiremenst-flet.txt`
 
@@ -123,6 +117,11 @@ Rekomendacja GPT:
 
 ![Screenshot from 2024-08-24 19-11-00](https://github.com/user-attachments/assets/5a75a2d9-8ef8-4c49-9ce8-02e5e7fc7abb)
 
+### Przykład użycia aplikacji Flet
+
+Predykcja modelu:
+
+![Flet](https://github.com/user-attachments/assets/706e5df6-7154-438e-b85e-0440557feb12)
 
 ## Licencja
 
@@ -154,6 +153,10 @@ Jeśli masz pytania, sugestie lub chciałbyś się skontaktować w sprawie aplik
 - GitHub Rafał Pietras: [rafalradx](https://github.com/rafalradx)
 - GitHub Sabina Limmer: [SabinaLimmer](https://github.com/SabinaLimmer)
 
+# Predicting Customer Churn for a Telecommunications Company
+
+The goal of this project is to develop a predictive model that can forecast the likelihood of customers discontinuing telecommunication services based on the analysis of historical customer data. This project represents a comprehensive approach to data analysis and machine learning, encompassing every key stage—from initial data exploration, through data preprocessing, model development, and evaluation, to the deployment of the model in the form of an application. As a result, the model will not only be effective but also ready for practical application, helping the company take proactive measures to retain customers.
+
 ## Table of Contents
 
 - [Configuration](#Configuration)
@@ -177,7 +180,6 @@ The application uses the following packages:
 - `tensorflow`
 - `uvicorn[standard]`
 - `openai`
-
 
 ## Installation
 
@@ -208,8 +210,6 @@ To use `flet` app install requirements from file:
 The FastAPI application can interact with ChatGPT via the OpenAI API to obtain recommendations. To use this functionality, you need to rename the configuration file from `env` to `.env` and include your OpenAI API key:
 
 `OPENAI_API_KEY=your_super_secret_open_AI_api_key`
-
-### 
 
 ## Running the Application:
 
@@ -265,6 +265,12 @@ Model prediction:
 GPT recommendation:
 
 ![Screenshot from 2024-08-24 19-11-00](https://github.com/user-attachments/assets/5a75a2d9-8ef8-4c49-9ce8-02e5e7fc7abb)
+
+### Usage example Flet
+
+Model prediction:
+
+![Flet](https://github.com/user-attachments/assets/706e5df6-7154-438e-b85e-0440557feb12)
 
 ## Licence
 
