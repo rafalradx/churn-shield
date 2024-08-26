@@ -100,11 +100,11 @@ To polecenie tworzy obraz Docker o nazwie `ml-churn-fastapi`, używając Ubuntu 
 
 Aby uruchomić aplikację w kontenerze, użyj następującego polecenia:
 
-`docker run -d -p 8000:8000 ml-churn-fastapi`
+`docker run -d -p 80:80 ml-churn-fastapi`
 
 Aplikacja będzie dostępna w przeglądarce pod adresem:
 
-`localhost:8000`
+`localhost:80`
 
 ## Przykład użycia
 
@@ -252,11 +252,11 @@ This command creates a docker image named `ml-churn-fastapi` with ubuntu 24.04 a
 
 To start the app in a container, run the following command:
 
-`docker run -d -p 8000:8000 ml-churn-fastapi`
+`docker run -d -p 80:80 ml-churn-fastapi`
 
 The app can be accessed in your browser at:
 
-`localhost:8000`
+`localhost:80`
 
 ## Usage example
 

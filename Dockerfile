@@ -28,7 +28,7 @@ RUN . venv/bin/activate && pip install --no-cache-dir --upgrade -r $APP_HOME/req
 COPY . $APP_HOME
 
 # Expose port 8000 to allow external access
-EXPOSE 8000
+EXPOSE 80
 
 # Command to run the FastAPI application using uvicorn
-CMD ["sh", "-c", ". venv/bin/activate && uvicorn main:app --host 0.0.0.0 --port 8000"]
+CMD ["sh", "-c", ". venv/bin/activate && uvicorn main:app --host 0.0.0.0 --port 80"]
