@@ -81,6 +81,9 @@ Aby uruchomić aplikację FastAPI, użyj następującego polecenia:
 ```
 uvicorn main:app --reload
 ```
+Aplikacja będzie dostępna w przeglądarce pod adresem:
+
+`127.0.0.1:8000`
 
 ### Uruchamianie notatnika Jupyter
 
@@ -232,6 +235,9 @@ To start the FastAPI application, use the following command:
 ```
 uvicorn main:app --reload
 ```
+The app can be accessed in your browser at:
+
+`127.0.0.1:8000`
 
 ### Running the Jupyter Notebook
 
