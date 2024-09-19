@@ -1,5 +1,5 @@
 from fastapi import APIRouter
-from src.repository.gpt import generate_suggestion
+from src.dependencies.gpt import generate_suggestion
 from src.schemas import RecommendationRequest
 
 router = APIRouter(prefix="/gpt", tags=["gpt"])

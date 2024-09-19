@@ -1,6 +1,6 @@
 from fastapi import APIRouter
 from src.schemas import InputData
-from src.repository import models
+from src.dependencies import models
 
 router = APIRouter(prefix="/models", tags=["models"])
 
