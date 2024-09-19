@@ -39,13 +39,13 @@ Aplikacja korzysta z następujących bibliotek:
 ### 1. Pobierz repozytorium:
 
 ```
-git clone https://github.com/rafalradx/to-churn-or-not-to-churn
+git clone https://github.com/rafalradx/churn-shield
 ```
 
 ### 2. Przejdź do katalogu z aplikacją np.:
 
 ```
-cd to-churn-or-not-to-churn
+cd churn-shield
 ```
 
 ### 3. Instalacja zależności:
@@ -190,13 +190,13 @@ The application uses the following packages:
 ### 1. Clone the Repository:
 
 ```
-git clone https://github.com/rafalradx/to-churn-or-not-to-churn
+git clone https://github.com/rafalradx/churn-shield
 ```
 
 ### 2. Navigate to the Application Directory:
 
 ```
-cd to-churn-or-not-to-churn
+cd churn-shield
 ```
 
 ### 3. Install Dependencies:
